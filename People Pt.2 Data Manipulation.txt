@@ -1,0 +1,70 @@
+1. Add a person to the collection. You pick the data, but they should have an empty array for children.
+     db.people.insertOne({
+  	first_name: "John",
+  	last_name: "Doe",
+  	age: 35,
+  	state: "California",
+  	email: "johndoe@example.com",
+  	children: []
+	})
+
+2. Add another person. They should have at least two children.
+     db.people.insertOne({
+  	first_name: "April",
+  	last_name: "Smith",
+ 	 age: 30,
+  	state: "Michigan",
+ 	 email: "janesmith@example.com",
+  	children: ["Tommy", "Samantha"]
+	})
+
+3. Update one person named Clarence. He moved from North Dakota to South Dakota.
+     db.people.updateOne(
+  	{ first_name: "Clarence" },
+  	{ $set: { state: "South Dakota" } }
+	)
+
+4. Update Rebecca Hayes. Remove her email address.
+     db.people.updateOne(
+  	{ first_name: "Rebecca", last_name: "Hayes" },
+  	{ $unset: { email: "" } }
+	)
+
+5. Update everyone from Missouri. They all had a birthday today, so add one to their age
+     db.people.updateMany(
+  	{ state: "Missouri" },
+  	{ $inc: { age: 1 } }
+	)
+
+6. Jerry Baker has updated information. Replace with a new document:
+   { first_name: "Jerry", last_name: "Baker-Mendez", email: "jerry@classic.ly", gender:"Male", age: 28, state:       "Vermont", "children": [{name: "Alan", age: 18}, {name: "Jenny", age: 3}] }
+     db.people.replaceOne(
+  	{ first_name: "Jerry", last_name: "Baker" },
+  	 {
+    	first_name: "Jerry",
+    	last_name: "Baker-Mendez",
+   	 email: "jerry@classic.ly",
+    	gender: "Male",
+   	 age: 28,
+    	state: "Vermont",
+    	children: [
+      	{ name: "Alan", age: 18 },
+      	{ name: "Jenny", age: 3 }
+    	  ]
+ 	 }
+	)
+
+7. Delete Wanda Bowman.
+     db.people.deleteOne({ first_name: "Wanda", last_name: "Bowman" })
+
+8. Delete everyone who does not have an email address specified
+     db.people.deleteMany({ email: { $exists: false } })
+
+
+
+
+
+
+
+
+     
